@@ -15,11 +15,12 @@
         android:hint="Første tal"
         android:inputType="numberDecimal"
         />
-    <TextView
-        android:id="@+id/TextPlus"
+    <Spinner
+        android:id="@+id/SpinnerOp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="+"
+        android:entries="@array/CalcFuncs"
         />
     <EditText
         android:id="@+id/TextSecNumber"
@@ -29,7 +30,7 @@
         android:inputType="numberDecimal"
         />
     <Button
-        android:id="@+id/ButtonPlus"
+        android:id="@+id/ButtonCalc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Calculate"

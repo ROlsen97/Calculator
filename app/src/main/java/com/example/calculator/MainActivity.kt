@@ -3,6 +3,7 @@ package com.example.calculator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import com.example.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +15,19 @@ class MainActivity : AppCompatActivity() {
         val view: View = binding.root
         setContentView(view)
 
-        binding.ButtonPlus.setOnClickListener {
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.CalcFuncs,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            binding.SpinnerOp.adapter = adapter
+        }
+
+        /*binding.ButtonCalc.setOnClickListener {
             val inputfield = binding.TextFirstNumber
             val numberToCalculate = inputfield.text.toString().trim()
             if (numberToCalculate.isEmpty()) {
@@ -29,6 +42,16 @@ class MainActivity : AppCompatActivity() {
             }
             var result = (numberToCalculate.toDouble() + secnumberToCalc.toDouble()).toString()
             binding.ViewShowResult.text = "Result : $result"
+        }*/
+        binding.ButtonCalc.setOnClickListener {
+            val oneNumber = binding.TextFirstNumber.text.toString()
+            val twoNumber = binding.TextSecNumber.text.toString()
+            when(binding.SpinnerOp.selectedItem.toString()){
+                "+" -> binding.ViewShowResult.text = (oneNumber.toDouble() + twoNumber.toDouble()).toString()
+                "-" -> binding.ViewShowResult.text = (oneNumber.toDouble() - twoNumber.toDouble()).toString()
+                "*" -> binding.ViewShowResult.text = (oneNumber.toDouble() * twoNumber.toDouble()).toString()
+                "/" -> binding.ViewShowResult.text = (oneNumber.toDouble() / twoNumber.toDouble()).toString()
+            }
         }
     }
 }
